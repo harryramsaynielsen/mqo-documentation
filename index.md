@@ -32,7 +32,7 @@
 ## SQL Code Blocks
 Here, we store predefined code blocks for _types_ of reports we'd want to have.
 
-- Version Mappings
+This is just plain text.
 ### Version mappings
 
 Retrieving version mappings.
@@ -45,6 +45,8 @@ Output fields:
 - Original source
 - Country of production
 - Sequence number
+
+Changes
 
 ```SQL
 SELECT vm.remote_program_id as tms_id,
