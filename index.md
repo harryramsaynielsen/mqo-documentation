@@ -121,3 +121,7 @@ LEFT JOIN sources.cur_tms_call_sign cs ON ps.progserv_id = cs.progserv_id
         -   What else?
     -   Technical knowledge (how to write code to query specific tables etc)
         -   What else?
+
+Here's a sentence with a footnote. [^1]
+
+[^1]: This is the footnote.
