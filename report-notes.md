@@ -1,5 +1,20 @@
-# MQO-540
-## Notes
+# 1. MQO-540
+
+<!-- TOC -->
+
+- [1. MQO-540](#1-mqo-540)
+    - [1.1. Notes](#11-notes)
+        - [1.1.1. Questions](#111-questions)
+    - [1.2. Where should you begin?](#12-where-should-you-begin)
+    - [1.3. Process](#13-process)
+    - [1.4. Required Fields:](#14-required-fields)
+        - [1.4.1. Schedule query for MQO-540](#141-schedule-query-for-mqo-540)
+        - [1.4.2. Replace True/False with "X" or None](#142-replace-truefalse-with-x-or-none)
+    - [1.5. SQL Aggregation](#15-sql-aggregation)
+
+<!-- /TOC -->
+
+## 1.1. Notes
 
 - If they're asking based on _channels_, it's a **schedule** report.
     - The table here is `interface_db.schedule_record_t` (which you can alias with `sr`)
@@ -23,7 +38,7 @@ WHERE sr_station_num = 49613
 	AND sr_deleted = 0
 ```
 
-### Questions
+### 1.1.1. Questions
 
 - When you say ON Database do you mean the Ned Database?
     - [VJ] Yes NED database, The product feed. The query has come from the CX team we would be interested to look into the data that is shared with clients.
@@ -36,7 +51,7 @@ WHERE sr_station_num = 49613
 - Are there any image types that need to be filtered out of the report?
     - [VJ] We do not need any filter for Image types
 
-## Where should you begin?
+## 1.2. Where should you begin?
 
 If we're going off TMS IDs, begin at `version mapping` - unless they want root IDs, where you want the program table or the version table, depending on the other data.
 
@@ -46,14 +61,14 @@ Will need to use the `','join` (etc) for TMS IDs.
 
 ------
 
-## Process
+## 1.3. Process
 
 - Look up by ID instead of name (less room for error)
 - However, you should output the **name**, not the ID (For the person who's receiving the report, a description like `Movie` is much clearer than `7`)
 
 ----------------
 
-## Required Fields:
+## 1.4. Required Fields:
 
 - [ ] Country
 - [ ] progserv id
@@ -82,7 +97,7 @@ The common database is the link between:
 
 -------------
 
-### Schedule query for MQO-540
+### 1.4.1. Schedule query for MQO-540
 
 ```sql
 SELECT sr_station_num as progserv_id, sr_air_datetime, sr_database_key3 as tms_id
@@ -94,7 +109,7 @@ WHERE sr_station_num = 49613
 ```
 
 
-### Replace True/False with "X" or None
+### 1.4.2. Replace True/False with "X" or None
 ```Python
 import numpy as np
 progs_df[['any_banner','any_episodic','any_iconic']] = progs_df[['any_banner','any_episodic','any_iconic']].replace({True: 'X', False: np.nan})
@@ -103,7 +118,7 @@ progs_df[['any_banner','any_episodic','any_iconic']] = progs_df[['any_banner','a
 --------------  
 
 
-## SQL Aggregation
+## 1.5. SQL Aggregation
 ```SQL
 select remote_program_id as tms_id,
     string_agg(country_abbr1, '; ' order by country_of_production_seq) as country
