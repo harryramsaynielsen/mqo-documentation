@@ -108,6 +108,3 @@ Within each of these categories, there are further Subtypes. For instance, Movie
 general concepts
 ID types
 data objects
-
-TAM = total audience measurement
-Ann Mazzella (?!) - been at Nielsen 40 years.
